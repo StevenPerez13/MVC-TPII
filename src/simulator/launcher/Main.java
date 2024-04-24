@@ -253,10 +253,17 @@ public class Main {
 
 		// (3) Crear una instancia de Simulator pasando a su constructora la información
 		// que necesita
-		int width = inputJson.getInt("width");
-		int height = inputJson.getInt("height");
-		int rows = inputJson.getInt("rows");
-		int cols = inputJson.getInt("cols");
+		int width,height,rows,cols;
+		try {
+		width = inputJson.getInt("width");
+		height = inputJson.getInt("height");
+		rows = inputJson.getInt("rows");
+		cols = inputJson.getInt("cols");
+		}
+		catch (Exception e) {
+			
+			throw new IllegalArgumentException("The file contais a error when creating the bord");
+		}
 
 		Simulator simulator = new Simulator(cols, rows, width, height, _animal_factory, _region_factory);
 

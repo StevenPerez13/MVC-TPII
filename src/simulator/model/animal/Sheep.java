@@ -56,17 +56,10 @@ public class Sheep extends Animal {
 		this.set_age(_age + dt);
 
 		// 1.4
-		double newEnergy = _energy - (fact_20 * dt);
-		this.set_energy(newEnergy);
-		// Mantener entre 0-100
-		if (_energy < min_limit)
-			this.set_energy(min_limit);
+		this.changeEnergy(-(fact_20*dt));
 
 		// 1.5
-		double newDesire = _desire + (fact_40 * dt);
-		this.set_desire(newDesire);
-		if (this._desire > max_limit)
-			this.set_desire(max_limit);
+		this.changeDesire((fact_40*dt));
 	}
 	private void goAway(double dt) {
 		// 2.1
@@ -77,17 +70,9 @@ public class Sheep extends Animal {
 		// 2.3
 		this.set_age(_age + dt);
 		// 2.4
-		double newEnergy_Danger = _energy - (fact_20 * fact_1_2 * dt);
-		this.set_energy(newEnergy_Danger);
-		// Mantener entre 0-100
-		if (_energy < min_limit)
-			this.set_energy(min_limit);
-
+		this.changeEnergy(-(fact_20 *fact_1_2*dt));
 		// 2.5
-		double newDesire_Danger = _desire + (fact_40 * dt);
-		this.set_desire(newDesire_Danger);
-		if (_desire > 100)
-			this.set_desire(100);
+		this.changeDesire((fact_20*dt));
 	}
 	private void emparejarse() {
 		this.set_desire(min_limit);
@@ -115,17 +100,10 @@ public class Sheep extends Animal {
 		this.set_age(_age + dt);
 
 		// 2.4
-		double newEnergy_Mate = _energy - (fact_20 * fact_1_2 * dt);
-		this.set_energy(newEnergy_Mate);
-		// Mantener entre 0-100
-		if (_energy < min_limit)
-			this.set_energy(min_limit);
+		this.changeEnergy(-(fact_20*fact_1_2*dt));
 
 		// 2.5
-		double newDesire_Mate = _desire + (fact_40 * dt);
-		this.set_desire(newDesire_Mate);
-		if (_desire > max_limit)
-			this.set_desire(max_limit);
+		this.changeDesire((fact_40*dt));
 	}
 	protected void UpdatePos() {
 		if (this._pos.getX() >= this._region_mngr.get_width() || this._pos.getX() < 0 || this._pos.getY() >= this._region_mngr.get_height()
@@ -262,9 +240,7 @@ public class Sheep extends Animal {
 			// su _energy (manteniéndolo siempre entre 0.0 y 100.0)
 			if (!isDied()) {
 				double new_energy = _region_mngr.get_food(this, dt);
-				this.set_energy(this.get_energy() + new_energy);
-				if (this.get_energy() > max_limit)
-					this.set_energy(max_limit);
+				this.changeEnergy(new_energy);
 			}
 
 		}
