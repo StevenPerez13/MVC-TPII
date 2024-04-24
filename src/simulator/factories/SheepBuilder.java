@@ -33,7 +33,13 @@ public class SheepBuilder extends Builder<Animal> {
 
 		if (data.has("pos")) {
 			JSONObject pos = data.optJSONObject("pos");
-
+			if(pos.has("x_range")) {
+				throw new IllegalArgumentException("The x_range key does not exist inside pos in an elements of the sheep key"); 
+			}
+			if(pos.has("y_range")) {
+				throw new IllegalArgumentException("The y_range key does not exist inside pos in an elements of the sheep key"); 
+			}
+			try {
 			JSONArray x_range = pos.getJSONArray("x_range");
 			double x_min = x_range.getDouble(0);
 			double x_max = x_range.getDouble(1);
@@ -43,6 +49,19 @@ public class SheepBuilder extends Builder<Animal> {
 			double y_max = y_range.getDouble(1);
 			
 			posfin = Vector2D.get_random_vector_range(x_min, x_max, y_min, y_max);
+			if(x_min <0 || x_max <0||y_max<0||y_min<0){
+				throw new IllegalArgumentException("To generate the random position of the sheep xrange and y_range must be positive");
+			}
+			if(x_min >x_max || y_max <y_min){
+				throw new IllegalArgumentException("To generate the random position of the sheep xrange and y_range must be soarted from lowest to highest");
+			}
+			
+			}
+			catch(Exception e) {
+				throw new IllegalArgumentException("Any value of the pos key of the sheep key is not a numeric value");
+			}
+			
+			
 		}
 
 		if (mateStrategy == null) {

@@ -17,7 +17,13 @@ public class DynamicSupplyRegionBuilder extends Builder<Region> {
 			throw new IllegalArgumentException("información data vacía ");
 		}
 		double factor = data.has("factor") ? data.getDouble("factor") : 2.0;
+		if(factor <0) {
+			throw new IllegalArgumentException("The value of factor must to be positive");
+		}
 		double food = data.has("food") ? data.getDouble("food") : 1000.0;
+		if(food <=0) {
+			throw new IllegalArgumentException("The value of food must to be positive");
+		}
 		return new DynamicSupplyRegion(food, factor);
 	}
 	
