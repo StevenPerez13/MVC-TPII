@@ -112,6 +112,12 @@ public class Simulator implements JSONable {
 		jsonSimulator.put("state", _region_mngr.as_JSON());
 		return jsonSimulator;
 	}
+	
+	public void reset(int cols, int rows, int width, int height) {
+		this.animalsSimulator.clear();
+		this._region_mngr = new RegionManager(cols, rows, width, height);
+		this.cur_time = 0.0;
+	}
 
 	public Factory<Animal> getAnimals_factory() {
 		return animals_factory;

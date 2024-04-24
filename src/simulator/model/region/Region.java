@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import simulator.model.Entity;
 import simulator.model.animal.Animal;
+import simulator.model.animal.AnimalInfo;
 
 public abstract class Region implements Entity, FoodSupplier, RegionInfo {
 	protected List<Animal> animalsRegion;
@@ -16,7 +17,7 @@ public abstract class Region implements Entity, FoodSupplier, RegionInfo {
 	protected final static double fact_5 = 5.0;
 	protected final static double fact_60 = 60.0;
 
-	public Region() {
+	protected Region() {
 		this.animalsRegion = new ArrayList<>();
 	}
 
@@ -45,6 +46,12 @@ public abstract class Region implements Entity, FoodSupplier, RegionInfo {
 		}
 		json.put("animals", arrayAnimales);
 		return json;
+	}
+	
+	public abstract String toString();
+	
+	public List<AnimalInfo> getAnimalsInfo() {
+		return new ArrayList<>(animalsRegion); 
 	}
 
 }

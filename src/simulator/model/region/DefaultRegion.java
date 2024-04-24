@@ -34,4 +34,10 @@ public class DefaultRegion extends Region {
 		} else
 			return 0.0;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+	    return "DefaultRegion ";
+	}
 }

@@ -59,4 +59,10 @@ public class DynamicSupplyRegion extends Region {
 		this._factor = _factor;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+	    return "DynamicSupplyRegion [_food=" + _food + ", _factor=" + _factor + "]";
+	}
+
 }

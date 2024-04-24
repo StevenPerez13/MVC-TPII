@@ -73,5 +73,13 @@ public class SheepBuilder extends Builder<Animal> {
 
 		return new Sheep(mateStrategy, dangerStrategy, posfin);
 	}
+	
+	@Override
+	protected void fill_in_data(JSONObject o) {
+		o.put("danger_strategy", "strategy for go away of the hunter");
+		o.put("mate_strategy", "strategy for find a mate");
+		o.put("pos", "pos in the map");
+
+	}
 
 }
