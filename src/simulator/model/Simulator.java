@@ -14,13 +14,14 @@ import simulator.model.gestorregion.MapInfo;
 import simulator.model.gestorregion.RegionManager;
 import simulator.model.region.Region;
 
-public class Simulator implements JSONable {
+public class Simulator implements JSONable,Observable<EcoSysObserver> {
 
 	private Factory<Animal> animals_factory;
 	private Factory<Region> regions_factory;
 	private RegionManager _region_mngr;
 	private List<Animal> animalsSimulator;
 	private double cur_time;
+	private List<EcoSysObserver> observers;
 
 	public Simulator(int cols, int rows, int width, int height, Factory<Animal> animals_factory,
 			Factory<Region> regions_factory) {
@@ -38,6 +39,7 @@ public class Simulator implements JSONable {
 		this.regions_factory = regions_factory;
 		this.animalsSimulator = new ArrayList<>();
 		this.cur_time = 0.0;
+		observers = new ArrayList<>();
 
 	}
 
@@ -105,6 +107,20 @@ public class Simulator implements JSONable {
 		_region_mngr.update_all_regions(dt);
 
 	}
+	@Override
+	public void addObserver(EcoSysObserver o) {
+		if(!observers.contains(o)) {
+			observers.add(o);
+			//o.onRegister(cur_time, _region_mngr, animalsSimulator);
+		}
+		
+	}
+
+	@Override
+	public void removeObserver(EcoSysObserver o) {
+		observers.remove(o);
+		
+	}
 
 	public JSONObject as_JSON() {
 		JSONObject jsonSimulator = new JSONObject();
@@ -117,6 +133,10 @@ public class Simulator implements JSONable {
 		this.animalsSimulator.clear();
 		this._region_mngr = new RegionManager(cols, rows, width, height);
 		this.cur_time = 0.0;
+		
+		for (EcoSysObserver observer : observers) {
+            //observer.onReset(cur_time, _region_mngr, null);
+        }
 	}
 
 	public Factory<Animal> getAnimals_factory() {
@@ -158,5 +178,7 @@ public class Simulator implements JSONable {
 	public void setCur_time(double cur_time) {
 		this.cur_time = cur_time;
 	}
+
+	
 
 }
